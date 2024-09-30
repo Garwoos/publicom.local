@@ -29,7 +29,7 @@
         const password = document.getElementById('password').value;
         
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('/loginUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,7 +41,7 @@
             
             if (response.ok) {
                 // Rediriger vers une page après connexion réussie
-                window.location.href = '/dashboard';
+                window.location.href = '/';
             } else {
                 // Afficher le message d'erreur
                 errorMessage.textContent = data.message || 'Connexion échouée. Vérifiez vos informations.';

@@ -1,4 +1,15 @@
-
+<?php
+    session_start(); // Assure-toi que la session est démarrée
+    // Vérifier si l'utilisateur est connecté
+    if (empty($_SESSION["user"])) {
+        //rediriger vers la page de connexion
+        header("Location: /login");
+        exit;
+    }
+    else {
+        echo "Bonjour ".$_SESSION["user"]["mailUser"];
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,12 +48,7 @@
             <th>supprimer</th>
             </tr>
             <?php
-            // Vérifier si l'utilisateur est connecté
-            if (empty($_SESSION["user"])) {
-                
-                exit;
-            }
-            else if (!empty($data)) {
+            if (!empty($data) && !empty($_SESSION["user"])) {
                 // Afficher les données de chaque ligne
                 foreach ($data as $row) {
                     echo "<tr>
