@@ -3,43 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'accueil</title>
+    <title>Accueil</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem;
             text-align: center;
         }
-        main {
-            padding: 2rem;
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
         }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur notre site</h1>
-    </header>
-    <main>
-        <p>Ceci est la page d'accueil de notre site web. Nous sommes ravis de vous voir ici.</p>
-    </main>
-    <footer>
-        <p>&copy; 2023 Notre Site Web</p>
-    </footer>
+    <h1>Messages</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Texte</th>
+            <th>Lien</th>
+            <th>Mail du créateur</th>
+            <th>Online</th>
+            <th>Modifier</th>
+            <th>supprimer</th>
+            </tr>
+            <?php
+            if (!empty($data)) {
+                // Afficher les données de chaque ligne
+                foreach ($data as $row) {
+                    echo "<tr>
+                    <td>" . $row["idMessage"]. "</td>
+                    <td>" . $row["Title"]. "</td>
+                    <td>" . $row["Text"]. "</td>
+                    <td>example</td>
+                    <td>" .$row["mailUser"]. "</td> <td>";
+                    
+                    // Afficher une checkbox pour le champ Online
+                    if ($row["Online"]) {
+                        echo "<input type='checkbox' checked disabled>";
+                    } else {
+                        echo "<input type='checkbox' disabled>";
+                    }
+                    
+                    // Ajouter les boutons Modifier et Supprimer
+                    echo "</td><td><a href='modifier.php?id=" . $row["idMessage"] . "'>Modifier</a></td>";
+                    echo "<td><a href='#' onclick='confirmDelete(" . $row["idMessage"] . ")'>Supprimer</a></td></tr>";
+                }
+            } else {
+                echo "<tr><td colspan='8'>Aucun message trouvé</td></tr>";
+            }
+            ?>
+            </table>
+            <script>
+            function confirmDelete(id) {
+                if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "supprimer.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            alert(xhr.responseText);
+                            // Rafraîchir la page pour refléter les changements
+                            location.reload();
+                        }
+                    };
+                    xhr.send("id=" + id);
+                }
+            }
+            </script>
 </body>
-</html>
+</html> 
