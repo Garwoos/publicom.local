@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -35,7 +37,12 @@
             <th>supprimer</th>
             </tr>
             <?php
-            if (!empty($data)) {
+            // Vérifier si l'utilisateur est connecté
+            if (empty($_SESSION["user"])) {
+                
+                exit;
+            }
+            else if (!empty($data)) {
                 // Afficher les données de chaque ligne
                 foreach ($data as $row) {
                     echo "<tr>
@@ -65,11 +72,10 @@
             function confirmDelete(id) {
                 if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "supprimer.php", true);
+                    xhr.open("POST", "/delete");
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
-                            alert(xhr.responseText);
                             // Rafraîchir la page pour refléter les changements
                             location.reload();
                         }
