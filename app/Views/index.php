@@ -1,13 +1,12 @@
 <?php
-    session_start(); // Assure-toi que la session est démarrée
-    // Vérifier si l'utilisateur est connecté
-    if (empty($_SESSION["user"])) {
-        //rediriger vers la page de connexion
+    $session = session();
+
+    if (!$session->has('user')) {
         header("Location: /login");
-        exit;
-    }
-    else {
-        echo "Bonjour ".$_SESSION["user"]["mailUser"];
+        exit();
+    } else {
+        $user = $session->get('user');
+        echo "Bonjour " . $user['username'];
     }
 ?>
 
