@@ -77,9 +77,29 @@
 
 <script>
     function createMessage() {
+        const titre = document.getElementById('titre').value;
+        const description = document.getElementById('description').value;
         
-
-
+        fetch('/createMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ titre, description })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Evènement créé avec succès');
+                window.location.href = '/';
+            } else {
+                alert('Erreur lors de la création de l\'évènement');
+            }
+        })
+        .catch(error => {
+            alert('Erreur lors de la création de l\'évènement');
+        });
+    }
 </script>
 <body>
 </html>
