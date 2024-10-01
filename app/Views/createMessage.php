@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: /login');
+    exit;
+}
+
+$_SESSION['user_email'] = $user_email; // Stocker l'email de l'utilisateur dans la session
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -60,6 +71,11 @@
     <div class="container">
         <h1>Création de l'évènement</h1>
         
+
+        <?php
+            session_start();
+            $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : '';
+        ?>
         <div class="form-group">
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
@@ -76,7 +92,9 @@
     </div>
 
 <script>
+    const userEmail = '<?php echo $user_email; ?>';
     function createMessage() {
+
         const titre = document.getElementById('titre').value;
         const description = document.getElementById('description').value;
         
