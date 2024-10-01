@@ -91,12 +91,19 @@ $user_email = $session->get('user')['mailUser'];
         </div>
     </div>
 
+<<<<<<< HEAD
     <script>
         const userEmail = '<?php echo $user_email; ?>';
 
         function createMessage() {
             const titre = document.getElementById('titre').value;
             const description = document.getElementById('description').value;
+=======
+<script>
+    function createMessage() {
+        
+    }
+>>>>>>> abce024 (Fix baseURL in .env file and add session)
 
             if (!titre || !description) {
                 alert('Veuillez remplir tous les champs.');
