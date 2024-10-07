@@ -9,6 +9,6 @@ class history extends BaseController
 {
     public function index()
     {
-        return view('createMessage');
+        return view('history');
     }
 }
