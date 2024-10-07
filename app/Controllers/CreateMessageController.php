@@ -13,7 +13,7 @@ class CreateMessageController extends BaseController
         $title = $this->request->getPost('title');
         $text = $this->request->getPost('text');
         //vaut faux par défaut
-        $online = $this->request->getPost('online') ? true : false;
+        $online = 0;
         $mailUser = $this->request->getPost('mailUser');
 
         if (!$title || !$text || !$mailUser) {

@@ -110,8 +110,8 @@ $user_email = $session->get('user')['mailUser'];
                 },
                 body: JSON.stringify({
                     titre : titre,
-                    description :
-                    mailUser: userEmail
+                    description : description,
+                    mailUser : userEmail
                 })
             })
             .then(response => response.json())
