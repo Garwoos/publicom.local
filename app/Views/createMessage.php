@@ -109,8 +109,8 @@ $user_email = $session->get('user')['mailUser'];
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    titre : titre,
-                    description : description,
+                    title : titre,        // Change 'titre' to 'title'
+                    text : description,   // Change 'description' to 'text'
                     mailUser : userEmail
                 })
             })

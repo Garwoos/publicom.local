@@ -9,22 +9,32 @@ class CreateMessageController extends BaseController
 {
     public function index()
     {
-        // Récupérer les données du formulaire
-        $title = $this->request->getPost('title');
-        $text = $this->request->getPost('text');
-        //vaut faux par défaut
-        $online = 0;
-        $mailUser = $this->request->getPost('mailUser');
+        // Validation setup
+        $validation = \Config\Services::validation();
 
-        if (!$title || !$text || !$mailUser) {
+        // Set rules to ensure required fields are provided
+        $validation->setRules([
+            'title' => 'required',          // Ensure title is provided
+            'text' => 'required',           // Ensure text/description is provided
+            'mailUser' => 'required|valid_email'  // Ensure a valid email is provided
+        ]);
+
+        // If validation fails, return an error response
+        if (!$validation->withRequest($this->request)->run()) {
             return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
-                                  ->setJSON(['message' => 'Données manquantes.']);
+                                 ->setJSON(['message' => 'Données invalides.', 'errors' => $validation->getErrors()]);
         }
 
-        // Charger le modèle
+        // Extract the data from the request
+        $title = $this->request->getPost('title');
+        $text = $this->request->getPost('text');
+        $mailUser = $this->request->getPost('mailUser');
+        $online = 0;  // Default value for 'online'
+
+        // Load the MessageModel
         $messageModel = new \App\Models\MessageModel();
 
-        // Tenter l'insertion dans la base de données
+        // Try inserting into the database
         try {
             $messageModel->insert([
                 'Title' => $title,
@@ -32,13 +42,14 @@ class CreateMessageController extends BaseController
                 'Online' => $online,
                 'mailUser' => $mailUser,
             ]);
-            // Rediriger vers la page d'accueil
+
+            // Return success message
             return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
-                                  ->setJSON(['message' => 'Evènement créé avec succès.']);
+                                 ->setJSON(['message' => 'Evènement créé avec succès.']);
         } catch (\Exception $e) {
-            // En cas d'erreur
+            // Handle database errors
             return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
-                                  ->setJSON(['message' => 'Erreur lors de la création de l\'évènement : ' . $e->getMessage()]);
+                                 ->setJSON(['message' => 'Erreur lors de la création de l\'évènement : ' . $e->getMessage()]);
         }
     }
 }
