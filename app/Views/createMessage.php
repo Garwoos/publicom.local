@@ -86,6 +86,7 @@ $user_email = $session->get('user')['mailUser'];
         </div>
         
         <div class="button-container">
+            <!-- Bouton déclenchant la fonction createMessage() -->
             <button onclick="createMessage()">Créer</button>
         </div>
     </div>
@@ -108,9 +109,9 @@ $user_email = $session->get('user')['mailUser'];
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    titre: titre,
-                    description: description,
-                    mailUser: userEmail
+                    titre : titre,
+                    description : description,
+                    mailUser : userEmail
                 })
             })
             .then(response => response.json())
