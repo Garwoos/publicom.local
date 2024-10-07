@@ -86,28 +86,16 @@ $user_email = $session->get('user')['mailUser'];
         </div>
         
         <div class="button-container">
-
             <button onclick="createMessage()">Créer</button>
         </div>
     </div>
 
-<<<<<<< HEAD
     <script>
         const userEmail = '<?php echo $user_email; ?>';
 
         function createMessage() {
             const titre = document.getElementById('titre').value;
             const description = document.getElementById('description').value;
-<<<<<<< HEAD
-            
-=======
-=======
-<script>
-    function createMessage() {
-        
-    }
->>>>>>> abce024 (Fix baseURL in .env file and add session)
->>>>>>> 0af491d435b8cfe490211e48a9e155f06808dae3
 
             if (!titre || !description) {
                 alert('Veuillez remplir tous les champs.');
