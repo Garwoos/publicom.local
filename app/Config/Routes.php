@@ -20,5 +20,3 @@ $routes->post('/createMessage', 'CreateMessageController::index');
 $routes->post('/deleteMessage', 'DeleteMessageController::index');
 
 $routes->post('/updateMessage', 'UpdateMessageController::index');
-
-
