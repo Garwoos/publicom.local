@@ -51,9 +51,9 @@
                     
                     // Afficher une checkbox pour le champ Online
                     if ($row["Online"]) {
-                        echo "<input type='checkbox' checked disabled>";
+                        echo "<input type='checkbox' checked >";
                     } else {
-                        echo "<input type='checkbox' disabled>";
+                        echo "<input type='checkbox'";
                     }
                     
                     // Ajouter les boutons Modifier et Supprimer
