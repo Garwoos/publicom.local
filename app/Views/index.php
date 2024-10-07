@@ -69,7 +69,7 @@
             function confirmDelete(id) {
                 if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "supprimer.php", true);
+                    xhr.open("POST", "/deleteMessage", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
