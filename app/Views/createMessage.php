@@ -1,12 +1,16 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: /login');
-    exit;
+$session = session();
+
+if (!$session->has('user')) {
+    header("Location: /login");
+    exit();
+} else {
+    $user = $session->get('user');
+    echo "Bonjour " . $user['username'];
 }
 
-$_SESSION['user_email'] = $user_email; // Stocker l'email de l'utilisateur dans la session
-
+// Récupération de l'email utilisateur
+$user_email = $session->get('user')['mailUser'];
 ?>
 
 <!DOCTYPE html>
@@ -71,11 +75,6 @@ $_SESSION['user_email'] = $user_email; // Stocker l'email de l'utilisateur dans 
     <div class="container">
         <h1>Création de l'évènement</h1>
         
-
-        <?php
-            session_start();
-            $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : '';
-        ?>
         <div class="form-group">
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
@@ -87,37 +86,44 @@ $_SESSION['user_email'] = $user_email; // Stocker l'email de l'utilisateur dans 
         </div>
         
         <div class="button-container">
-            <button>Créer</button>
+            <!-- Bouton déclenchant la fonction createMessage() -->
+            <button onclick="createMessage()">Créer</button>
         </div>
     </div>
 
-<script>
-    const userEmail = '<?php echo $user_email; ?>';
-    function createMessage() {
+    <script>
+        const userEmail = '<?php echo $user_email; ?>';
 
-        const titre = document.getElementById('titre').value;
-        const description = document.getElementById('description').value;
-        
-        fetch('/createMessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ titre, description })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Evènement créé avec succès');
-                window.location.href = '/';
-            } else {
-                alert('Erreur lors de la création de l\'évènement');
+        function createMessage() {
+            const titre = document.getElementById('titre').value;
+            const description = document.getElementById('description').value;
+
+            if (!titre || !description) {
+                alert('Veuillez remplir tous les champs.');
+                return;
             }
-        })
-        .catch(error => {
-            alert('Erreur lors de la création de l\'évènement');
-        });
-    }
-</script>
-<body>
+
+            fetch('/createMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    titre : titre,
+                    description :
+                    mailUser: userEmail
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => {
+                alert('Erreur lors de la création de l\'évènement. Veuillez réessayer plus tard.');
+            });
+        }
+</body>
 </html>

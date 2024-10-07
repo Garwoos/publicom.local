@@ -23,7 +23,7 @@ class messageModel extends Model
     ];
 
     // Dates
-    protected $useTtimestamps = false; // Pas de timestamps par défaut
+    protected $useTimestamps = false; // Pas de gestion automatique des timestamps
     protected $dateFormat    = 'datetime'; // Format de date par défaut
 
     // Validation

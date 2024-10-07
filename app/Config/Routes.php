@@ -13,7 +13,7 @@ $routes->post('/loginUser','LoginUserController::index');
 
 $routes->get('/create', 'Create::index');
 
-$routes->get('/createMessage', 'CreateMessageController::index');
+$routes->post('/createMessage', 'CreateMessageController::index');
 
 $routes->post('/deleteMessage', 'DeleteMessageController::index');
 
