@@ -30,19 +30,20 @@ $user_email = $session->get('user')['mailUser'];
         <li><a href="<?php echo site_url('login'); ?>">Connexion</a></li>
     </ul>  
     <h2>Création de l'évènement</h2>
+
     <div class="container">
         
-        
+
         <div class="form-group">
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
         </div>
-        
+
         <div class="form-group">
             <label for="description">Description évènement</label>
             <textarea id="description" placeholder="Description ici"></textarea>
         </div>
-        
+
         <div class="button-container">
             <!-- Bouton déclenchant la fonction createMessage() -->
             <button onclick="createMessage()">Créer</button>
@@ -67,10 +68,10 @@ $user_email = $session->get('user')['mailUser'];
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    titre : titre,
-                    description : description,
-                    mailUser : userEmail
-                })
+                title : titre,        // Change 'titre' to 'title'
+                text : description,   // Change 'description' to 'text'
+                mailUser : userEmail
+            })
             })
             .then(response => response.json())
             .then(data => {
@@ -82,6 +83,7 @@ $user_email = $session->get('user')['mailUser'];
             .catch(error => {
                 alert('Erreur lors de la création de l\'évènement. Veuillez réessayer plus tard.');
             });
+
         }
     </script>
 </body>
