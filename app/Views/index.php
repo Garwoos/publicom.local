@@ -6,7 +6,6 @@
         exit();
     } else {
         $user = $session->get('user');
-        echo "Bonjour " . $user['username'];
     }
 ?>
 
@@ -14,27 +13,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #000;
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+    <meta name="description" content="The small framework with powerful features">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo base_url('css/style.css'); ?>">
 </head>
 <body>
-    <h1>Messages</h1>
+    <h1>Publicom</h1>
+    <ul class="menu">
+        <li><a href="<?php echo site_url(relativePath: '/'); ?>">Accueil</a></li>
+        <li><a href="<?php echo site_url('visualisation'); ?>">Visualisation</a></li>
+        <li><a href="<?php echo site_url('create'); ?>">Création</a></li>
+        <li><a href="<?php echo site_url('login'); ?>">Connexion</a></li>
+    </ul>  
+    <h2>Accueil</h2>  
     <table>
         <tr>
             <th>ID</th>
@@ -47,7 +39,7 @@
             <th>supprimer</th>
             </tr>
             <?php
-            if (!empty($data) && !empty($_SESSION["user"])) {
+            if (!empty($data)) {
                 // Afficher les données de chaque ligne
                 foreach ($data as $row) {
                     echo "<tr>
@@ -77,10 +69,11 @@
             function confirmDelete(id) {
                 if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/delete");
+                    xhr.open("POST", "supprimer.php", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
+                            alert(xhr.responseText);
                             // Rafraîchir la page pour refléter les changements
                             location.reload();
                         }
@@ -88,6 +81,6 @@
                     xhr.send("id=" + id);
                 }
             }
-            </script>
+            </script> 
 </body>
-</html> 
+</html>
