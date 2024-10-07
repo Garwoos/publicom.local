@@ -86,7 +86,7 @@ $user_email = $session->get('user')['mailUser'];
         </div>
         
         <div class="button-container">
-            <!-- Bouton déclenchant la fonction createMessage() -->
+
             <button onclick="createMessage()">Créer</button>
         </div>
     </div>
@@ -97,6 +97,7 @@ $user_email = $session->get('user')['mailUser'];
         function createMessage() {
             const titre = document.getElementById('titre').value;
             const description = document.getElementById('description').value;
+            
 
             if (!titre || !description) {
                 alert('Veuillez remplir tous les champs.');
@@ -109,8 +110,8 @@ $user_email = $session->get('user')['mailUser'];
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    titre : titre,
-                    description :
+                    titre: titre,
+                    description: description,
                     mailUser: userEmail
                 })
             })
@@ -125,5 +126,6 @@ $user_email = $session->get('user')['mailUser'];
                 alert('Erreur lors de la création de l\'évènement. Veuillez réessayer plus tard.');
             });
         }
+    </script>
 </body>
 </html>
