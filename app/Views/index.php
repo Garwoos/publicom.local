@@ -80,11 +80,6 @@
                     };
                     xhr.send("id=" + id);
             }
-<<<<<<< HEAD
             </script>
-=======
-            </script> 
-<?= $this->endSection() ?>
->>>>>>> d8b3693c961957acfefed19b6caceb6b97b2a5b1
 </body>
 </html>
