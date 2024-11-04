@@ -19,16 +19,16 @@ if (!$session->has('user')) {
 
         <div class="containerUn">
             <div class="form-group">
-                <input type="text" id="titre" value="<?= htmlspecialchars(string: $message['Title']) ?>" readonly>
+                <p id="titre" ><?= htmlspecialchars(string: $message['Title']) ?></p>
             </div>
 
             <div class="form-group">
-                <p id="description" readonly><?= htmlspecialchars(string: $message['Text']) ?></p>
+                <p id="description"><?= htmlspecialchars(string: $message['Text']) ?></p>
             </div>
         </div>
         <div class="containerDeux">
             <div class="form-group">
-                <input type="text" id="titre" value="<?= htmlspecialchars(string: $message['Title']) ?>" readonly>
+                <p id="titre" ><?= htmlspecialchars(string: $message['Title']) ?></p>
             </div>
 
             <div class="form-group">
