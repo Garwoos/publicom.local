@@ -22,13 +22,6 @@ $user_email = $session->get('user')['mailUser'];
     <title>Création de l'évènement</title>
 </head>
 <body>
-<<<<<<< HEAD
-
-    <div class="container">
-        <h1>Création de l'évènement</h1>
-        
-        <div class="form-group">
-=======
     <h1>Publicom</h1>
     <ul class="menu">
         <li><a href="<?php echo site_url(relativePath: '/'); ?>">Accueil</a></li>
@@ -39,10 +32,9 @@ $user_email = $session->get('user')['mailUser'];
     <h2>Création de l'évènement</h2>
 
     <div class="container">
-        
+
 
         <div class="form-group extra-margin">
->>>>>>> 229602120ce864d4516f8222dc59a72ff46c1560
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
         </div>
@@ -91,12 +83,7 @@ $user_email = $session->get('user')['mailUser'];
             .catch(error => {
                 alert('Erreur lors de la création de l\'évènement. Veuillez réessayer plus tard.');
             });
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> 229602120ce864d4516f8222dc59a72ff46c1560
         }
     </script>
 </body>
-</html>
