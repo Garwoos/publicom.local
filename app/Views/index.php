@@ -33,7 +33,7 @@
                     <td class= 'centrer'>" . $row["idMessage"]. "</td>
                     <td class= 'centrer'>" . $row["Title"]. "</td>
                     <td >" . $row["Text"]. "</td>
-                    <td class= 'centrer'>example</td>
+                    <td class='centrer'><a href='/visualisationMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
                     <td class= 'centrer'>" .$row["mailUser"]. "</td> <td>";
                     
                     // Afficher une checkbox pour le champ Online
@@ -81,5 +81,6 @@
                     xhr.send("id=" + id);
             }
             </script>
+<?= $this->endSection() ?>
 </body>
 </html>
