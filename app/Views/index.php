@@ -31,8 +31,8 @@
             foreach ($data as $row) {
                 echo "<tr>
                 <td class= 'centrer'>" . $row["idMessage"]. "</td>
-                <td class= 'centrer'>" . $row["Title"]. "</td>
-                <td >" . $row["Text"]. "</td>
+                <td class= 'centrer'>" . htmlspecialchars($row["Title"]). "</td>
+                <td >" . htmlspecialchars($row["Text"]). "</td>
                 <td class='centrer'><a href='/visualisationMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
                 <td class= 'centrer'>" .$row["mailUser"]. "</td> <td>";
                 

@@ -11,7 +11,7 @@ class MessageController extends BaseController
     public function create()
     {
         // Vérification que la requête est bien de type POST
-        if ($this->request->getMethod() !== 'post') {
+        if ($this->request->getMethod() !== 'POST') {
             return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
                                   ->setJSON(['message' => 'Méthode non autorisée']);
         }
