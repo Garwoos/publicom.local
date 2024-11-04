@@ -43,11 +43,11 @@
                 // Afficher les données de chaque ligne
                 foreach ($data as $row) {
                     echo "<tr>
-                    <td>" . $row["idMessage"]. "</td>
-                    <td>" . $row["Title"]. "</td>
-                    <td>" . $row["Text"]. "</td>
-                    <td>example</td>
-                    <td>" .$row["mailUser"]. "</td> <td>";
+                    <td class= 'centrer'>" . $row["idMessage"]. "</td>
+                    <td class= 'centrer'>" . $row["Title"]. "</td>
+                    <td >" . $row["Text"]. "</td>
+                    <td class= 'centrer'>example</td>
+                    <td class= 'centrer'>" .$row["mailUser"]. "</td> <td>";
                     
                     // Afficher une checkbox pour le champ Online
                     if ($row["Online"]) {
@@ -57,8 +57,8 @@
                     }
                     
                     // Ajouter les boutons Modifier et Supprimer
-                    echo "</td><td><a href='modifier.php?id=" . $row["idMessage"] . "'>Modifier</a></td>";
-                    echo "<td><a href='#' onclick='confirmDelete(" . $row["idMessage"] . ")'>Supprimer</a></td></tr>";
+                    echo "</td><td><button onclick= confirmModify(" . $row["idMessage"] . ")'>Modifier</button></td>";
+                    echo "<td><button  onclick='confirmDelete(" . $row["idMessage"] . ")'>Supprimer</button></td></tr>";
                 }
             } else {
                 echo "<tr><td colspan='8'>Aucun message trouvé</td></tr>";
@@ -70,6 +70,21 @@
                 if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "/deleteMessage", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Rafraîchir la page pour refléter les changements
+                            location.reload();
+                        }
+                    };
+                    xhr.send("id=" + id);
+                }
+            }
+
+            function confirmModify(id) {
+                if (confirm("Êtes-vous sûr de vouloir modifier ce message ?")) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/updateMessage", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {

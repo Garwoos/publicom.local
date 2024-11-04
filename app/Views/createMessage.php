@@ -34,14 +34,14 @@ $user_email = $session->get('user')['mailUser'];
     <div class="container">
         
 
-        <div class="form-group">
+        <div class="form-group extra-margin">
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
         </div>
 
         <div class="form-group">
-            <label for="description">Description évènement</label>
-            <textarea id="description" placeholder="Description ici"></textarea>
+            <label for="description" class="move-up">Description évènement</label>
+            <textarea id="description" placeholder="Description de l'évènement ici"></textarea>
         </div>
 
         <div class="button-container">

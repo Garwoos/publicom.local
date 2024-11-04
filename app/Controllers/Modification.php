@@ -7,5 +7,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Modification extends BaseController
 {
-    public function getMessageModel
+    public function index()
+    {
+        return view('modifyMessage');
+    }
 }

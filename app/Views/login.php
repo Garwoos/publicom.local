@@ -18,9 +18,9 @@
     <div class="formulaire">
         <form method="post" id="loginForm">
             <label for="email">Adresse Mail :</label><br>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="password">Mot de passe :</label><br>
-            <input type="password" id="password" name="password" required><br><br>
+            <input type="email" id="email" name="email" required  placeholder="Adresse mail ici"><br><br>
+            <label for="password ">Mot de passe :</label><br>
+            <input type="password" id="password" name="password" required placeholder="Mot de passe ici"><br><br>
             <button type="submit">Se Connecter</button>
         </form>
     </div>

@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+
+
 body {
     font-family: Arial, sans-serif;
 }
@@ -50,6 +52,10 @@ h1 {
     font-family: 'Arial Black', sans-serif;
 }
 
+.menu li a:hover {
+    color: #314a6f;
+}
+
 .menu li a::before {
     position: absolute;
     bottom : -5px;
@@ -58,7 +64,7 @@ h1 {
     height: 5px;
     border-radius: 6px;
     transition: 0.5s;
-    background-color: rgb(0, 0, 0);
+    background-color: #314a6f;
 
 }
 .menu li a:hover::before {
@@ -77,12 +83,18 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 100px;
+    }
+
+input::placeholder, textarea::placeholder {
+    font-style: italic;
+    color: #999;
 }
+
 form {
     display: flex;
     flex-direction: column;
     align-items: left;
+    margin-bottom: 150px;
 }
 form label {
     font-size: 1.2em;
@@ -102,18 +114,24 @@ form input {
 }
 
 form button {
-    margin: 50px;
-    padding: 10px 10px;
-    font-size: 1.2em;
-    background-color: black;
+    background-color: #000;
     color: white;
+    padding: 12px 8px;
+    margin: 5px auto;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    text-transform: uppercase;
+    width: 85%;
+    border-radius: 10px;
+    display: block;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, #000 50%, #314a6f 50%);
+    transition: background-position 0.5s;
 }
 
+
 form button:hover {
-    background-color: rgb(0, 0, 0, 0.8);
+    background-position: right center;
 }
 
 ::-webkit-scrollbar {
