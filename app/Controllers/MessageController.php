@@ -132,4 +132,51 @@ class MessageController extends BaseController
                                   ->setJSON(['message' => 'Erreur lors de la mise à jour dans la base de données', 'error' => $e->getMessage()]);
         }
     }
+
+    public function updateOnlineStatus()
+    {
+        // Vérification que la requête est bien de type PUT
+        if ($this->request->getMethod() !== 'PUT') {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
+                                  ->setJSON(['message' => 'Méthode non autorisée']);
+        }
+
+        // Récupération des données envoyées depuis le formulaire
+        $data = $this->request->getJSON(true); // Utilisation de getJSON pour récupérer les données JSON envoyées par fetch
+
+        // Récupérer l'ID du message à mettre à jour
+        $id = $data['id'] ?? null;
+
+        // Vérifier si l'ID est valide
+        if (!is_numeric($id)) {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                                  ->setJSON(['message' => 'ID invalide']);
+        }
+
+        $messageModel = new MessageModel();
+
+        // Vérifier si le message existe
+        $message = $messageModel->find($id);
+
+        if (empty($message)) {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                                  ->setJSON(['message' => 'Message non trouvé']);
+        }
+
+        // Préparation des données pour la mise à jour
+        $updatedMessage = [
+            'Online' => $data['online'] ?? $message['Online'], // Utiliser la valeur existante si non fournie
+        ];
+
+        // Mise à jour du message dans la base de données
+        try {
+            $messageModel->update($id, $updatedMessage);
+            return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
+                                  ->setJSON(['message' => 'Statut en ligne mis à jour avec succès']);
+        } catch (\Exception $e) {
+            // Gestion des erreurs de mise à jour
+            return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                                  ->setJSON(['message' => 'Erreur lors de la mise à jour dans la base de données', 'error' => $e->getMessage()]);
+        }
+    }
 }
