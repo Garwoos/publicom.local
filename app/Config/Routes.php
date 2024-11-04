@@ -21,6 +21,6 @@ $routes->post('/createMessage', 'MessageController::create');
 
 $routes->post('/deleteMessage', 'MessageController::delete');
 
-$routes->post('/updateMessage', 'MessageController::update');
+$routes->put('/updateMessage', 'MessageController::update');
 
 $routes->get('/visualisationMessage', 'VisualisationController::visualize');
