@@ -10,22 +10,9 @@ if (!$session->has('user')) {
 
 // Récupération de l'email utilisateur
 $user_email = $session->get('user')['mailUser'];
-
-// Récupération des données du message si l'ID est fourni
-$messageId = isset($_GET['id']) ? $_GET['id'] : '';
-$messageTitle = '';
-$messageDescription = '';
-
-if ($messageId) {
-    // Charger le modèle
-    $messageModel = new \App\Models\MessageModel();
-    $message = $messageModel->find($messageId);
-
-    if ($message) {
-        $messageTitle = $message['Title'];
-        $messageDescription = $message['Text'];
-    }
-}
+$messageId = isset($messageId) ? $messageId : '';
+$messageTitle = isset($messageTitle) ? $messageTitle : '';
+$messageDescription = isset($messageDescription) ? $messageDescription : '';
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +27,7 @@ if ($messageId) {
 <body>
     <h1>Publicom</h1>
     <ul class="menu">
-        <li><a href="<?php echo site_url(relativePath: '/'); ?>">Accueil</a></li>
+        <li><a href="<?php echo site_url('/'); ?>">Accueil</a></li>
         <li><a href="<?php echo site_url('visualisation'); ?>">Visualisation</a></li>
         <li><a href="<?php echo site_url('create'); ?>">Création</a></li>
         <li><a href="<?php echo site_url('login'); ?>">Connexion</a></li>

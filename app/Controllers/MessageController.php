@@ -11,7 +11,7 @@ class MessageController extends BaseController
     public function create()
     {
         // Vérification que la requête est bien de type POST
-        if ($this->request->getMethod() !== 'POST') {
+        if ($this->request->getMethod() !== 'post') {
             return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
                                   ->setJSON(['message' => 'Méthode non autorisée']);
         }
@@ -77,8 +77,9 @@ class MessageController extends BaseController
 
     public function update()
     {
-        // Vérification que la requête est bien de type POST
-        if ($this->request->getMethod() !== 'POST') {
+        // Vérification que la requête est bien de type PUT
+        
+        if ($this->request->getMethod() !== 'PUT') {
             return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
                                   ->setJSON(['message' => 'Méthode non autorisée']);
         }
@@ -110,7 +111,7 @@ class MessageController extends BaseController
             'Title'    => $data['title'] ?? $message['Title'],       // Utiliser la valeur existante si non fournie
             'Text'     => $data['text'] ?? $message['Text'],        // Utiliser la valeur existante si non fournie
             'mailUser' => $data['mailUser'] ?? $message['mailUser'], // Utiliser la valeur existante si non fournie
-            'Online'   => $data['online'] ?? $message['Online'],    // Utiliser la valeur existante si non fournie
+            'Online'   => 0,    // Utiliser la valeur existante si non fournie
         ];
 
         // Validation des données (en fonction des règles définies dans le modèle)

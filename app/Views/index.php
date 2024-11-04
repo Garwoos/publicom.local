@@ -69,22 +69,9 @@
             }
 
             function confirmModify(id) {
-                var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/save", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // Rafraîchir la page pour refléter les changements
-                            location.reload();
-                        }
-                    };
-                    xhr.send("id=" + id);
+                window.location.href = "/modify/" + id;
             }
-<<<<<<< HEAD
-            </script>
-=======
             </script> 
 <?= $this->endSection() ?>
->>>>>>> d8b3693c961957acfefed19b6caceb6b97b2a5b1
 </body>
 </html>
