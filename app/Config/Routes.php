@@ -13,10 +13,12 @@ $routes->post('/loginUser','LoginUserController::index');
 
 $routes->get('/create', 'Create::index');
 
+$routes->get('/modify/(:num)', 'Modify::index/$1');
+
 $routes->get('/History/(:num)', 'History::index/$1');
 
-$routes->post('/createMessage', 'CreateMessageController::index');
+$routes->post('/createMessage', 'MessageController::create');
 
-$routes->post('/deleteMessage', 'DeleteMessageController::index');
+$routes->post('/deleteMessage', 'MessageController::delete');
 
-$routes->post('/updateMessage', 'UpdateMessageController::index');
+$routes->post('/updateMessage', 'MessageController::update');

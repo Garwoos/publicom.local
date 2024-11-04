@@ -57,7 +57,7 @@
                     }
                     
                     // Ajouter les boutons Modifier et Supprimer
-                    echo "</td><td><button onclick= confirmModify(" . $row["idMessage"] . ")'>Modifier</button></td>";
+                    echo "</td><td><button onclick='confirmModify(" . $row["idMessage"] . ")'>Modifier</button></td>";
                     echo "<td><button  onclick='confirmDelete(" . $row["idMessage"] . ")'>Supprimer</button></td></tr>";
                 }
             } else {
@@ -82,9 +82,8 @@
             }
 
             function confirmModify(id) {
-                if (confirm("Êtes-vous sûr de vouloir modifier ce message ?")) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/updateMessage", true);
+                var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/save", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -93,8 +92,7 @@
                         }
                     };
                     xhr.send("id=" + id);
-                }
             }
-            </script> 
+            </script>
 </body>
 </html>
