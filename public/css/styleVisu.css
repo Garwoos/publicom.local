@@ -37,7 +37,7 @@
     width: 100%;
 }
 
-input[type="text"], textarea {
+input[type="text"], p {
     width: 100%;
     padding: 10px;
     border: none;
@@ -49,9 +49,4 @@ input[type="text"], textarea {
     margin-top: 20px;
     background: transparent; /* Make input and textarea background transparent */
     color: #fff; /* Ensure text is visible on the background */
-}
-
-textarea {
-    height: 300px;
-    resize: none;
 }

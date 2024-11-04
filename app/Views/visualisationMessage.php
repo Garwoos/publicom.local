@@ -23,7 +23,7 @@ if (!$session->has('user')) {
             </div>
 
             <div class="form-group">
-                <textarea id="description" readonly><?= htmlspecialchars(string: $message['Text']) ?></textarea>
+                <p id="description" readonly><?= htmlspecialchars(string: $message['Text']) ?></p>
             </div>
         </div>
         <div class="containerDeux">
@@ -32,7 +32,7 @@ if (!$session->has('user')) {
             </div>
 
             <div class="form-group">
-                <textarea id="description" readonly><?= htmlspecialchars(string: $message['Text']) ?></textarea>
+                <p id="description" readonly><?= htmlspecialchars(string: $message['Text']) ?></p>
             </div>
         </div>
 
