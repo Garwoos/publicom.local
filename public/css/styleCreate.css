@@ -101,7 +101,7 @@ h2 {
 
 .move-up {
     position: relative;
-    top: -90px; /* Adjust this value as needed */
+    top: -90px; 
 }
 .form-group input[type="text"],
 .form-group textarea {
