@@ -20,7 +20,7 @@ $user_email = $session->get('user')['mailUser'];
 
     <div class="container">
         
-        <div class="form-group">"é"
+        <div class="form-group">
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
         </div>
