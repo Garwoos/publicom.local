@@ -6,7 +6,6 @@ if (!$session->has('user')) {
     exit();
 } else {
     $user = $session->get('user');
-    echo "Bonjour " . $user['username'];
 }
 
 // Récupération de l'email utilisateur
@@ -17,72 +16,40 @@ $user_email = $session->get('user')['mailUser'];
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="The small framework with powerful features">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo base_url('css/styleCreate.css'); ?>">
     <title>Création de l'évènement</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            width: 60%;
-            border: 2px solid #000;
-            padding: 20px;
-            background-color: #fff;
-        }
-        h1 {
-            text-align: center;
-        }
-        .form-group {
-            display: flex;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-        .form-group label {
-            width: 200px;
-            font-weight: bold;
-        }
-        .form-group input[type="text"],
-        .form-group textarea {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #000;
-        }
-        textarea {
-            height: 200px;
-            resize: none;
-        }
-        .button-container {
-            text-align: right;
-            margin-top: 20px;
-        }
-        .button-container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: 2px solid #000;
-            background-color: #e0e0e0;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<<<<<<< HEAD
 
     <div class="container">
         <h1>Création de l'évènement</h1>
         
         <div class="form-group">
+=======
+    <h1>Publicom</h1>
+    <ul class="menu">
+        <li><a href="<?php echo site_url(relativePath: '/'); ?>">Accueil</a></li>
+        <li><a href="<?php echo site_url('visualisation'); ?>">Visualisation</a></li>
+        <li><a href="<?php echo site_url('create'); ?>">Création</a></li>
+        <li><a href="<?php echo site_url('login'); ?>">Connexion</a></li>
+    </ul>  
+    <h2>Création de l'évènement</h2>
+
+    <div class="container">
+        
+
+        <div class="form-group extra-margin">
+>>>>>>> 229602120ce864d4516f8222dc59a72ff46c1560
             <label for="titre">Titre</label>
             <input type="text" id="titre" placeholder="Rentrez le titre ici">
         </div>
 
         <div class="form-group">
-            <label for="description">Description évènement</label>
-            <textarea id="description" placeholder="Description ici"></textarea>
+            <label for="description" class="move-up">Description évènement</label>
+            <textarea id="description" placeholder="Description de l'évènement ici"></textarea>
         </div>
 
         <div class="button-container">
@@ -124,7 +91,11 @@ $user_email = $session->get('user')['mailUser'];
             .catch(error => {
                 alert('Erreur lors de la création de l\'évènement. Veuillez réessayer plus tard.');
             });
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 229602120ce864d4516f8222dc59a72ff46c1560
         }
     </script>
 </body>
