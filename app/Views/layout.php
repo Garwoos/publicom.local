@@ -11,7 +11,6 @@
     <h1>Publicom</h1>
     <ul class="menu">
         <li><a href="<?php echo site_url(relativePath: '/'); ?>">Accueil</a></li>
-        <li><a href="<?php echo site_url('visualisation'); ?>">Visualisation</a></li>
         <li><a href="<?php echo site_url('create'); ?>">Création</a></li>
         <li><a href="<?php echo site_url('login'); ?>">Connexion</a></li>
     </ul>
