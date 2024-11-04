@@ -88,18 +88,18 @@ table {
 }
 
 th {
-    background-color: #314a6f; /* Fond noir */
-    color: #fff; /* Texte blanc */
+    background-color: #314a6f; 
+    color: #fff; 
     text-shadow: 2px 2px 4px rgba(189, 179, 188, 0.5);
     text-transform: uppercase;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2; /* Couleur pour les lignes paires */
+    background-color: #f2f2f2; 
 }
 
 tr:nth-child(odd) {
-    background-color: #ddd; /* Couleur pour les lignes impaires */
+    background-color: #ddd; 
 }
 
 td {
