@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+h1 {
+    padding: 7%;
+    text-align: center;
+    font-family: 'Raleway-Title', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(189, 179, 188, 0.5);
+    font-size: 5em;
+    text-transform: uppercase;
+    background-color: black;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.menu li {
+    display: inline;
+    padding: 20px 80px;
+}
+
+.menu li a {
+    position: relative;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    font-family: 'Arial Black', sans-serif;
+}
+.menu li a:hover {
+    color: #314a6f;
+}
+
+.menu li a::before {
+    position: absolute;
+    bottom : -5px;
+    content: "";
+    width: 0%;
+    height: 5px;
+    border-radius: 6px;
+    transition: 0.5s;
+    background-color: #314a6f;
+
+}
+.menu li a:hover::before {
+    width: 100%;
+}
+
+h2 {
+    padding: 5%;
+    text-align: center;
+    font-family: 'Raleway-Title', sans-serif;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    font-size: 4em;
+    font-weight: bold;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
