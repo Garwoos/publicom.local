@@ -15,7 +15,9 @@ $routes->get('/create', 'Create::index');
 
 $routes->get('/modify/(:num)', 'Modify::index/$1');
 
-$routes->get('/History/(:num)', 'History::index/$1');
+$routes->get('/History/(:num)', 'HistoriqueController::index/$1');
+
+$routes->get('/history', 'HistoriqueController::index'); #test pour voir si la page fonctionne
 
 $routes->post('/createMessage', 'MessageController::create');
 

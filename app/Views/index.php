@@ -20,6 +20,7 @@
             <th>Titre</th>
             <th>Texte</th>
             <th>Lien</th>
+            <th>Historique</th>
             <th>Mail du créateur</th>
             <th>Online</th>
             <th>Modifier</th>
@@ -34,6 +35,7 @@
                 <td class= 'centrer'>" . htmlspecialchars($row["Title"]). "</td>
                 <td >" . htmlspecialchars($row["Text"]). "</td>
                 <td class='centrer'><a href='/visualisationMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
+                <td class='centrer'><a href='/history?id=" . $row["idMessage"] . "'>Voir</a></td>
                 <td class= 'centrer'>" .$row["mailUser"]. "</td> <td>";
                 
                 // Afficher une checkbox pour le champ Online
