@@ -15,10 +15,6 @@ $routes->get('/create', 'Create::index');
 
 $routes->get('/modify/(:num)', 'Modify::index/$1');
 
-$routes->get('/History/(:num)', 'HistoriqueController::index/$1');
-
-$routes->get('/history', 'HistoriqueController::index'); #test pour voir si la page fonctionne
-
 $routes->post('/createMessage', 'MessageController::create');
 
 $routes->post('/deleteMessage', 'MessageController::delete');
@@ -28,3 +24,5 @@ $routes->put('/updateMessage', 'MessageController::update');
 $routes->put('/updateOnlineStatus', 'MessageController::updateOnlineStatus');
 
 $routes->get('/visualisationMessage', 'VisualisationController::visualize');
+
+$routes->get('/HistoriqueMessage/(:num)', 'ModificationController::history/$1');

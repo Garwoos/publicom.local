@@ -44,7 +44,7 @@
                 }
                 
                 echo "</td>
-                <td class='centrer'><a href='/history?id=" . $row["idMessage"] . "'>Voir</a></td>
+                <td class= 'centrer'> <a href='/HistoriqueMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
                 <td class='centrer'>" . $row["mailUser"] . "</td>
                 <td>";
                 
