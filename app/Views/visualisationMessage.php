@@ -27,41 +27,23 @@ if (!$session->has('user')) {
         </div>
     </div>
     <button class="nav-button next-button" onclick="navigateMessage('next')"><span class="arrow">&rarr;</span></button>
+    <input type="hidden" id="currentEventId" value="<?= htmlspecialchars($message['idMessage']) ?>">
 </div>
+
 <script>
 function navigateMessage(direction) {
-    const currentId = <?= json_encode($message['idMessage']) ?>;
-    if (!currentId) {
-        alert('Current message ID is missing.');
-        return;
-    }
+    const currentEventId = document.getElementById('currentEventId').value;
 
-    // Sauvegarder la position de défilement actuelle
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-    localStorage.setItem('scrollPosition', scrollPosition);
-
-    fetch(`/visualisation/navigate?id=${currentId}&direction=${direction}`)
+    fetch(`/navigateEvent?direction=${direction}&currentEventId=${currentEventId}`)
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                window.location.href = `?id=${data.message.idMessage}`;
-            } else {
-                alert('No more messages in this direction.');
-            }
+            document.getElementById('titre').innerText = data.Title;
+            document.getElementById('description').innerText = data.Text;
+            document.getElementById('currentEventId').value = data.idMessage;
         })
         .catch(error => console.error('Error:', error));
 }
-
-// Restaurer la position de défilement après le chargement de la page
-window.onload = function() {
-    const scrollPosition = localStorage.getItem('scrollPosition');
-    if (scrollPosition !== null) {
-        window.scrollTo(0, parseInt(scrollPosition, 10));
-        localStorage.removeItem('scrollPosition'); // Supprimer la position sauvegardée après restauration
-    }
-};
 </script>
-
 <?= $this->endSection() ?>
 </body>
 </html>

@@ -19,40 +19,34 @@ class VisualisationController extends Controller
         return view('visualisationMessage', $data);
     }
 
-    public function getAllProjectIds()
+    private function getEventIds()
     {
         $model = new MessageModel();
-        $model->select();
-        return $model->select('idMessage')->orderBy('idMessage', 'ASC')->findAll();
+        return $model->select('idMessage')->findAll();
     }
 
-    public function navigate()
+    public function navigateEvent()
     {
-        $id = $this->request->getGet('id');
         $direction = $this->request->getGet('direction');
-        $model = new MessageModel();
+        $currentEventId = $this->request->getGet('currentEventId');
+        $eventIds = $this->getEventIds();
+        $currentIndex = array_search($currentEventId, array_column($eventIds, 'idMessage'));
 
-        $projectIds = array_column($model->getAllProjectIds(), 'idMessage');
-        
-        if ($id && $direction) {
-            $currentIndex = array_search($id, $projectIds);
-            if ($currentIndex !== false) {
-                if ($direction === 'next' && isset($projectIds[$currentIndex + 1])) {
-                    $nextId = $projectIds[$currentIndex + 1];
-                } elseif ($direction === 'prev' && isset($projectIds[$currentIndex - 1])) {
-                    $nextId = $projectIds[$currentIndex - 1];
-                } else {
-                    return $this->response->setJSON(['success' => false, 'message' => 'No more messages in this direction.']);
-                }
-
-                $message = $model->find($nextId);
-                return $this->response->setJSON(['success' => true, 'message' => $message]);
-            } else {
-                return $this->response->setJSON(['success' => false, 'error' => 'Invalid ID']);
-            }
+        if ($direction === 'prev') {
+            $newIndex = max(0, $currentIndex - 1);
         } else {
-            return $this->response->setJSON(['success' => false, 'error' => 'Invalid parameters']);
+            $newIndex = min(count($eventIds) - 1, $currentIndex + 1);
         }
+
+        $newEventId = $eventIds[$newIndex]['idMessage'];
+        $model = new MessageModel();
+        $event = $model->where('idMessage', $newEventId)->first();
+
+        return $this->response->setJSON($event);
     }
+
+
+
+
 }
 ?>

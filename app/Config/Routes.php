@@ -27,4 +27,4 @@ $routes->get('/visualisationMessage', 'VisualisationController::visualize');
 
 $routes->get('/HistoriqueController/(:num)', 'HistoriqueController::history/$1');
 
-$routes->get('/visualisation/navigate', 'VisualisationController::navigate');
+$routes->get('/navigateEvent', 'VisualisationController::navigateEvent');
