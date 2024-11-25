@@ -7,8 +7,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class HistoriqueController extends BaseController
 {
-    public function index()
+    public function history($id)
     {
-        return view('history');
+        $messageModel = new \App\Models\MessageModel();
+        $message = $messageModel->find($id);
+        $historiqueModel = new \App\Models\HistoriqueModel();
+        return view('historique', ['data' => $historiqueModel->where('idMessage', $id)->findAll(), 'message' => $message]);
+        
     }
 }
