@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class modificationModel extends Model
+class historiqueModel extends Model
 {
-    protected $table            = 'modifications'; // Remplacez par le nom réel de votre table
+    protected $table            = 'modification'; // Remplacez par le nom réel de votre table
     protected $primaryKey       = 'idModification'; // La clé primaire de la table
     protected $useAutoIncrement = true; // Si la clé primaire est auto-incrémentée
     protected $returnType       = 'array';

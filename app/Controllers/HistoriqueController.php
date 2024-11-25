@@ -12,7 +12,7 @@ class HistoriqueController extends BaseController
         $messageModel = new \App\Models\MessageModel();
         $message = $messageModel->find($id);
         $historiqueModel = new \App\Models\HistoriqueModel();
-        return view('historique', ['data' => $historiqueModel->where('idMessage', $id)->findAll(), 'message' => $message]);
-        
+        return view('history', ['data' => $historiqueModel->where('idMessage', $id)->findAll(), 'message' => $message]);
+
     }
 }

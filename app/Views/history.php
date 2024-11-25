@@ -2,25 +2,28 @@
 
 <?= $this->section('content') ?>
     <h2>Historique</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Message</th>
+                <th>idHistorique</th>
+                <th>idMessage</th>
+                <th>mailUser</th>
+                <th>oldMessage</th>
                 <th>Date</th>
             </tr>
         </thead>
-            <?php 
-            foreach ($historiques as $historique): ?>
+        <tbody>
+            <?php foreach ($data as $row) : ?>
                 <tr>
-                    <td><?= $historique['id'] ?></td>
-                    <td><?= $historique['message'] ?></td> 
-                    <td><?= $historique['created_at'] ?></td> 
+                    <td><?= $row['idModification'] ?></td>
+                    <td><?= $row['IdMessage'] ?></td>
+                    <td><?= $row['mailUser'] ?></td>
+                    <td><?= $row['oldMessage'] ?></td>
+                    <td><?= $row['Date'] ?></td>
                 </tr>
             <?php endforeach; ?>
+        </tbody>
     </table>
 <?= $this->endSection() ?>
 </body>
 </html>
-
-// Modifie toutes les informations ici gros caca
