@@ -1,6 +1,12 @@
 .container-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Space between buttons and content */
+    align-items: center; /* Center align items vertically */
+    width: 100%; /* Ensure the container takes full width */
+    margin: 0 auto; /* Center the container horizontally */
+    gap: 50px;
+    padding-top: 50px;
+    margin-bottom: 150px;
 }
 
 
@@ -20,8 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 50px;
-    margin-bottom: 150px;
+    
 }
 
 .form-group {
@@ -45,4 +50,28 @@ p {
     margin-top: 20px;
     background: transparent; /* Make input and textarea background transparent */
     color: #fff; /* Ensure text is visible on the background */
+}
+
+
+.nav-button {
+    border: none; 
+    background-color: transparent; /* Transparent background */
+    padding: 0; /* Remove padding */
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    margin: 0; /* Remove margin */
+    cursor: pointer; 
+    border-radius: 12px; 
+    width: auto; 
+    flex-shrink: 0;
+}
+
+.nav-button .arrow {
+    color: black; 
+    font-size: 3em;
+    font-weight: 800; 
+    display: inline-block; /* Ensure the arrow is inline-block */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px; /* Add padding to the arrow itself */
 }

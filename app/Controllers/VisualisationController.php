@@ -19,23 +19,36 @@ class VisualisationController extends Controller
         return view('visualisationMessage', $data);
     }
 
+    public function getAllProjectIds()
+    {
+        $model = new MessageModel();
+        $model->select();
+        return $model->select('idMessage')->orderBy('idMessage', 'ASC')->findAll();
+    }
+
     public function navigate()
     {
         $id = $this->request->getGet('id');
         $direction = $this->request->getGet('direction');
         $model = new MessageModel();
 
-        if ($id && $direction) {
-            if ($direction === 'next') {
-                $message = $model->where('idMessage >', $id)->orderBy('idMessage', 'ASC')->first();
-            } else {
-                $message = $model->where('idMessage <', $id)->orderBy('idMessage', 'DESC')->first();
-            }
+        $projectIds = array_column($model->getAllProjectIds(), 'idMessage');
 
-            if ($message) {
+        if ($id && $direction) {
+            $currentIndex = array_search($id, $projectIds);
+            if ($currentIndex !== false) {
+                if ($direction === 'next' && isset($projectIds[$currentIndex + 1])) {
+                    $nextId = $projectIds[$currentIndex + 1];
+                } elseif ($direction === 'prev' && isset($projectIds[$currentIndex - 1])) {
+                    $nextId = $projectIds[$currentIndex - 1];
+                } else {
+                    return $this->response->setJSON(['success' => false, 'message' => 'No more messages in this direction.']);
+                }
+
+                $message = $model->find($nextId);
                 return $this->response->setJSON(['success' => true, 'message' => $message]);
             } else {
-                return $this->response->setJSON(['success' => false, 'message' => 'No more messages in this direction.']);
+                return $this->response->setJSON(['success' => false, 'error' => 'Invalid ID']);
             }
         } else {
             return $this->response->setJSON(['success' => false, 'error' => 'Invalid parameters']);

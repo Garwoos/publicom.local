@@ -16,7 +16,7 @@ if (!$session->has('user')) {
     <h2>Visualisation de l'évènement</h2>
 
 <div class="container-wrapper">
-    <button onclick="navigateMessage('prev')">←</button>
+    <button class="nav-button prev-button" onclick="navigateMessage('prev')"><span class="arrow">&larr;</span></button>
     <div class="containerUn">
         <div class="form-group">
             <p id="titre"><?= htmlspecialchars($message['Title']) ?></p>
@@ -26,7 +26,7 @@ if (!$session->has('user')) {
             <p id="description"><?= htmlspecialchars($message['Text']) ?></p>
         </div>
     </div>
-    <button onclick="navigateMessage('next')">→</button>
+    <button class="nav-button next-button" onclick="navigateMessage('next')"><span class="arrow">&rarr;</span></button>
 </div>
 <script>
 function navigateMessage(direction) {
@@ -35,6 +35,11 @@ function navigateMessage(direction) {
         alert('Current message ID is missing.');
         return;
     }
+
+    // Sauvegarder la position de défilement actuelle
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    localStorage.setItem('scrollPosition', scrollPosition);
+
     fetch(`/visualisation/navigate?id=${currentId}&direction=${direction}`)
         .then(response => response.json())
         .then(data => {
@@ -46,6 +51,15 @@ function navigateMessage(direction) {
         })
         .catch(error => console.error('Error:', error));
 }
+
+// Restaurer la position de défilement après le chargement de la page
+window.onload = function() {
+    const scrollPosition = localStorage.getItem('scrollPosition');
+    if (scrollPosition !== null) {
+        window.scrollTo(0, parseInt(scrollPosition, 10));
+        localStorage.removeItem('scrollPosition'); // Supprimer la position sauvegardée après restauration
+    }
+};
 </script>
 
 <?= $this->endSection() ?>
