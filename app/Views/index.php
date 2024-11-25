@@ -34,9 +34,19 @@
                 <td class= 'centrer'>" . $row["idMessage"]. "</td>
                 <td class= 'centrer'>" . htmlspecialchars($row["Title"]). "</td>
                 <td >" . htmlspecialchars($row["Text"]). "</td>
-                <td class='centrer'><a href='/visualisationMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
+                <td class='centrer'>";
+        
+                // Condition pour afficher le lien si la checkbox est validée
+                if ($row["Online"]) {
+                    echo "<a href='/visualisationMessage?id=" . $row["idMessage"] . "'>Voir</a>";
+                } else {
+                    echo "Non disponible";
+                }
+                
+                echo "</td>
                 <td class= 'centrer'> <a href='/HistoriqueMessage?id=" . $row["idMessage"] . "'>Voir</a></td>
-                <td class= 'centrer'>" .$row["mailUser"]. "</td> <td>";
+                <td class='centrer'>" . $row["mailUser"] . "</td>
+                <td>";
                 
                 // Afficher une checkbox pour le champ Online
                 if ($row["Online"]) {
@@ -89,6 +99,7 @@
         .then(data => {
             if (data.message) {
                 console.log(data.message);
+                location.reload();
             }
         })
         .catch(error => {
