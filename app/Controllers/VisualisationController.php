@@ -33,7 +33,7 @@ class VisualisationController extends Controller
         $model = new MessageModel();
 
         $projectIds = array_column($model->getAllProjectIds(), 'idMessage');
-
+        
         if ($id && $direction) {
             $currentIndex = array_search($id, $projectIds);
             if ($currentIndex !== false) {
