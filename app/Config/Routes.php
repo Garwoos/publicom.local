@@ -25,6 +25,6 @@ $routes->put('/updateOnlineStatus', 'MessageController::updateOnlineStatus');
 
 $routes->get('/visualisationMessage', 'VisualisationController::visualize');
 
-$routes->get('/HistoriqueMessage/(:num)', 'ModificationController::history/$1');
+$routes->get('/HistoriqueController/(:num)', 'HistoriqueController::history/$1');
 
 $routes->get('/visualisation/navigate', 'VisualisationController::navigate');
