@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\historiqueModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\MessageModel;
 use App\Models\modificationModel;
@@ -108,13 +109,12 @@ class MessageController extends BaseController
         }
 
         // Préparation de l'historique
-        $modificationModel = new modificationModel();
+        $modificationModel = new historiqueModel();
         $newModification = [
-            'idMessage' => $id,
-            'Title'     => $message['Title'],
-            'Text'      => $message['Text'],
-            'mailUser'  => $message['mailUser'],
-            'Online'    => $message['Online'],
+            'IdMessage'  => $id,
+            'mailUser'   => $message['mailUser'],
+            'Date'       => date('Y-m-d H:i:s'),
+            'oldMessage' => $message['Text']
         ];
 
         // Préparation des données pour la mise à jour
@@ -143,7 +143,7 @@ class MessageController extends BaseController
         // Mise à jour du message dans la base de données
         try {
             $messageModel->update($id, $updatedMessage);
-            $this->response->setStatusCode(ResponseInterface::HTTP_OK)
+            return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
                                   ->setJSON(['message' => 'Message mis à jour avec succès']);
         } catch (\Exception $e) {
             // Gestion des erreurs de mise à jour

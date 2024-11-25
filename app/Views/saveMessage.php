@@ -62,22 +62,19 @@ $messageDescription = isset($messageDescription) ? $messageDescription : '';
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id: messageId,
                     title: titre,
                     text: description,
-                    mailUser: userEmail
+                    mailUser: userEmail,
+                    id: messageId
                 })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.message) {
-                    alert(data.message);
-                    window.location.href = '/';
-                }
-            })
-            .catch(error => {
-                alert('Erreur lors de la sauvegarde de l\'évènement. Veuillez réessayer plus tard.');
+                alert(data.message);
+                window.location.href = '/';
             });
+
+            
         }
     </script>
 <?= $this->endSection() ?>
