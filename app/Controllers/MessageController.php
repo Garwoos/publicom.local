@@ -65,7 +65,7 @@ class MessageController extends BaseController
         if (!is_numeric($id)) {
             return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
         }
-        
+
         // Charger le modèle
         $messageModel = new messageModel();
 
