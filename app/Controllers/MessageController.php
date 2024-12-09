@@ -60,6 +60,7 @@ class MessageController extends BaseController
     {
         // Récupérer l'ID du message à supprimer
         $id = $this->request->getPost('id');
+        log_message('debug', 'ID de suppression : ' . $id); // Débogage pour vérifier l'ID
 
         // Vérifier si l'ID est valide
         if (!is_numeric($id)) {
@@ -82,6 +83,7 @@ class MessageController extends BaseController
         // Rediriger vers la page d'accueil
         return redirect()->to('/');
     }
+
 
     public function update()
 {
