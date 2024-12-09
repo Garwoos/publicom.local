@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\MessageModel;
+use App\Models\messageModel;
 use CodeIgniter\Controller;
 
 class VisualisationController extends Controller
@@ -9,7 +9,7 @@ class VisualisationController extends Controller
     public function visualize()
     {
         $id = $this->request->getGet('id');
-        $model = new MessageModel();
+        $model = new messageModel();
         $data['message'] = $model->where('idMessage', $id)->first();
 
         if (empty($data['message'])) {
@@ -39,7 +39,7 @@ class VisualisationController extends Controller
         }
 
         $newEventId = $eventIds[$newIndex]['idMessage'];
-        $model = new MessageModel();
+        $model = new messageModel();
         $event = $model->where('idMessage', $newEventId)->first();
 
         return $this->response->setJSON($event);
