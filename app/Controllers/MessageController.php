@@ -21,14 +21,20 @@ class MessageController extends BaseController
         // Récupération des données envoyées depuis le formulaire
         $data = $this->request->getJSON(true); // Utilisation de getJSON pour récupérer les données JSON envoyées par fetch
 
-        $messageModel = new MessageModel();
+        $messageModel = new messageModel();
 
         // Préparation des données pour l'insertion
         $newMessage = [
             'Title'    => $data['title'] ?? '',       // Vérifie que 'title' existe
             'Text'     => $data['text'] ?? '',        // Vérifie que 'text' existe
             'mailUser' => $data['mailUser'] ?? '',    // Vérifie que 'mailUser' existe
-            'Online'   => 1,                          // On peut mettre le message directement en ligne (Online = 1)
+            'Online'   => 0,                          // On peut mettre le message directement en ligne (Online = 1)
+            'image'    => $data['image'] ?? '',
+            'fontTitle' => $data['fontTitle'] ?? '',
+            'sizeTitle' => $data['sizeTitle'] ?? '',
+            'fontText' => $data['fontText'] ?? '',
+            'sizeText' => $data['sizeText'] ?? '',
+            'alignmentText' => $data['aligmentText'] ?? '',
         ];
 
         // Validation des données (en fonction des règles définies dans le modèle)
@@ -97,7 +103,7 @@ class MessageController extends BaseController
                               ->setJSON(['message' => 'ID invalide']);
     }
 
-    $messageModel = new MessageModel();
+    $messageModel = new messageModel();
 
     // Vérifier si le message existe
     $message = $messageModel->find($id);
@@ -178,7 +184,7 @@ class MessageController extends BaseController
                                   ->setJSON(['message' => 'ID invalide']);
         }
 
-        $messageModel = new MessageModel();
+        $messageModel = new messageModel();
 
         // Vérifier si le message existe
         $message = $messageModel->find($id);

@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\MessageModel;
+use App\Models\messageModel;
 
 class Modify extends BaseController
 {
@@ -15,7 +15,7 @@ class Modify extends BaseController
             return redirect()->to('/login');
         }
 
-        $messageModel = new MessageModel();
+        $messageModel = new messageModel();
         $message = $messageModel->find($id);
 
         if (!$message) {
