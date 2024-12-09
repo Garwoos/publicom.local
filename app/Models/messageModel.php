@@ -14,7 +14,7 @@ class messageModel extends Model
     protected $protectFields    = true; // Protéger les champs pour les mises à jour
     protected $allowedFields    = [
         'Title', 'Text', 'Online', 'mailUser', 'image', 
-        'fontTitle', 'sizeTitle', 'fontText', 'sizeText', 'aligmentText'
+        'fontTitle', 'sizeTitle', 'fontText', 'sizeText', 'alignmentText'
     ]; // Champs autorisés pour les inserts/updates
 
     protected bool $allowEmptyInserts = false; // Interdit les insertions vides
@@ -41,7 +41,7 @@ class messageModel extends Model
         'sizeTitle'  => 'required|integer',
         'fontText'   => 'required|integer',
         'sizeText'   => 'required|integer',
-        'aligmentText'=> 'required|integer'
+        'alignmentText'=> 'required|integer'
     ];
 
     protected $validationMessages = [
@@ -85,13 +85,13 @@ class messageModel extends Model
             'required' => 'Le champ sizeText est obligatoire.',
             'integer'  => 'sizeText doit être un nombre entier.'
         ],
-        'aligmentText' => [
+        'alignmentText' => [
             'required' => 'Le champ aligmentText est obligatoire.',
             'integer'  => 'aligmentText doit être un nombre entier.'
         ]
     ];
 
-    protected $skipValidation       = false; // Ne pas sauter la validation
+    protected $skipValidation       = true; // Ne pas sauter la validation
     protected $cleanValidationRules = true; // Nettoyer les règles de validation
 
     // Callbacks

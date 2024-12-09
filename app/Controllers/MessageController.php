@@ -21,40 +21,40 @@ class MessageController extends BaseController
         // Récupération des données envoyées depuis le formulaire
         $data = $this->request->getJSON(true); // Utilisation de getJSON pour récupérer les données JSON envoyées par fetch
 
-        $messageModel = new messageModel();
-
-        // Préparation des données pour l'insertion
+        // Création d'un tableau associatif avec les données du message
         $newMessage = [
-            'Title'    => $data['title'] ?? '',       // Vérifie que 'title' existe
-            'Text'     => $data['text'] ?? '',        // Vérifie que 'text' existe
-            'mailUser' => $data['mailUser'] ?? '',    // Vérifie que 'mailUser' existe
-            'Online'   => 0,                          // On peut mettre le message directement en ligne (Online = 1)
-            'image'    => $data['image'] ?? '',
-            'fontTitle' => $data['fontTitle'] ?? '',
-            'sizeTitle' => $data['sizeTitle'] ?? '',
-            'fontText' => $data['fontText'] ?? '',
-            'sizeText' => $data['sizeText'] ?? '',
-            'alignmentText' => $data['aligmentText'] ?? '',
+            'Title'         => $data['title'] ?? null,
+            'Text'          => $data['text'] ?? null,
+            'mailUser'      => $data['mailUser'] ?? null,
+            'Online'        => 0, 
+            'image'         => $data['image'] ?? null,
+            'fontTitle'     => $data['fontTitle'] ?? null,
+            'sizeTitle'     => $data['sizeTitle'] ?? null,
+            'fontText'      => $data['fontText'] ?? null,
+            'sizeText'      => $data['sizeText'] ?? null,
+            'alignmentText' => $data['alignmentText'] ?? null,
         ];
+
+        // Charger le modèle
+        $messageModel = new messageModel();
 
         // Validation des données (en fonction des règles définies dans le modèle)
         if (!$messageModel->validate($newMessage)) {
-            // Si validation échoue, renvoyer un message d'erreur avec les détails de la validation
             return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                                   ->setJSON(['message' => 'Erreur de validation', 'errors' => $messageModel->errors()]);
         }
 
-        // Insertion du nouveau message dans la base de données
+        // Insertion du message dans la base de données
         try {
             $messageModel->insert($newMessage);
-            return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
+            return $this->response->setStatusCode(ResponseInterface::HTTP_CREATED)
                                   ->setJSON(['message' => 'Message créé avec succès']);
         } catch (\Exception $e) {
             // Gestion des erreurs d'insertion
             return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
-                                  ->setJSON(['message' => 'Erreur lors de l\'insertion dans la base de données', 'error' => $e->getMessage()]);
-        }
+                                  ->setJSON(['message' => 'Erreur lors de l\'enregistrement dans la base de données', 'error' => $e->getMessage]);
     }
+}
 
     public function delete()
     {
@@ -65,7 +65,7 @@ class MessageController extends BaseController
         if (!is_numeric($id)) {
             return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
         }
-
+        
         // Charger le modèle
         $messageModel = new messageModel();
 
