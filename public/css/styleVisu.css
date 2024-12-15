@@ -45,11 +45,19 @@ p {
     border-radius: 5px;
     box-sizing: border-box;
     text-align: center;
-    font-size: 1.5em;
     font-weight: bold;
     margin-top: 20px;
     background: transparent; /* Make input and textarea background transparent */
     color: #fff; /* Ensure text is visible on the background */
+}
+#titre {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+#description {
+    font-family: inherit;
+    font-size: inherit;
 }
 
 

@@ -91,7 +91,7 @@ class messageModel extends Model
         ]
     ];
 
-    protected $skipValidation       = false; // Ne pas sauter la validation
+    protected $skipValidation       = true; // Ne pas sauter la validation
     protected $cleanValidationRules = true; // Nettoyer les règles de validation
 
     // Callbacks

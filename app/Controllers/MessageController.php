@@ -52,34 +52,49 @@ class MessageController extends BaseController
         } catch (\Exception $e) {
             // Gestion des erreurs d'insertion
             return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
-                                  ->setJSON(['message' => 'Erreur lors de l\'enregistrement dans la base de données', 'error' => $e->getMessage
+                                  ->setJSON(['message' => 'Erreur lors de l\'enregistrement dans la base de données', 'error' => $e->getMessage ]);
+        }
     }
-
-    public function delete()
+     public function delete()
     {
+        // Vérification que la requête est bien de type POST
+        if ($this->request->getMethod() !== 'POST') {
+            return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
+                                  ->setJSON(['message' => 'Méthode non autorisée']);
+        }
+
+        // Récupération des données envoyées depuis le formulaire
+        $data = $this->request->getJSON(true); // Utilisation de getJSON pour récupérer les données JSON envoyées par fetch
+
         // Récupérer l'ID du message à supprimer
-        $id = $this->request->getPost('id');
+        $id = $data['id'] ?? null;
 
         // Vérifier si l'ID est valide
         if (!is_numeric($id)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+            return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                                  ->setJSON(['message' => 'ID invalide']);
         }
 
-        // Charger le modèle
         $messageModel = new messageModel();
 
         // Vérifier si le message existe
         $message = $messageModel->find($id);
 
         if (empty($message)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND);
+            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                                  ->setJSON(['message' => 'Message non trouvé']);
         }
 
-        // Supprimer le message
-        $messageModel->delete($id);
-
-        // Rediriger vers la page d'accueil
-        return redirect()->to('/');
+        // Suppression du message dans la base de données
+        try {
+            $messageModel->delete($id);
+            return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
+                                  ->setJSON(['message' => 'Message supprimé avec succès']);
+        } catch (\Exception $e) {
+            // Gestion des erreurs de suppression
+            return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                                  ->setJSON(['message' => 'Erreur lors de la suppression dans la base de données', 'error' => $e->getMessage()]);
+        }
     }
 
     public function update()
