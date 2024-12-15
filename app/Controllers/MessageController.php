@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\historiqueModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\messageModel;
-use App\Models\modificationModel;
 
 class MessageController extends BaseController
 {
@@ -56,35 +55,46 @@ class MessageController extends BaseController
     }
 }
 
-    public function delete()
-    {
-        // Récupérer l'ID du message à supprimer
-        $id = $this->request->getPost('id');
-        log_message('debug', 'ID de suppression : ' . $id); // Débogage pour vérifier l'ID
-
-        // Vérifier si l'ID est valide
-        if (!is_numeric($id)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
-        }
-
-        // Charger le modèle
-        $messageModel = new messageModel();
-
-        // Vérifier si le message existe
-        $message = $messageModel->find($id);
-
-        if (empty($message)) {
-            return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND);
-        }
-
-        // Supprimer le message
-        $messageModel->delete($id);
-
-        // Rediriger vers la page d'accueil
-        return redirect()->to('/');
+public function delete($id)
+{
+    // Vérification que la requête est bien de type POST
+    if ($this->request->getMethod() !== 'POST') {
+        return $this->response->setStatusCode(ResponseInterface::HTTP_METHOD_NOT_ALLOWED)
+                              ->setJSON(['message' => 'Méthode non autorisée']);
     }
 
+    // Vérifier si l'ID est valide
+    if (!is_numeric($id)) {
+        return $this->response->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                              ->setJSON(['message' => 'ID invalide']);
+    }
 
+    $messageModel = new messageModel();
+    $historiqueModel = new historiqueModel(); // Assuming you have a model for the historique table
+
+    // Vérifier si le message existe
+    $message = $messageModel->find($id);
+
+    if (empty($message)) {
+        return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                              ->setJSON(['message' => 'Message non trouvé']);
+    }
+
+    // Suppression du message dans la base de données
+    try {
+        // Delete related records in the historique table
+        $historiqueModel->where('IdMessage', $id)->delete();
+
+        // Delete the message
+        $messageModel->delete($id);
+
+        return $this->response->setStatusCode(ResponseInterface::HTTP_OK)
+                              ->setJSON(['message' => 'Message supprimé avec succès']);
+    } catch (\Exception $e) {
+        return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                              ->setJSON(['message' => 'Erreur lors de la suppression du message', 'error' => $e->getMessage()]);
+    }
+}
     public function update()
 {
     // Vérification que la requête est bien de type PUT
@@ -116,8 +126,8 @@ class MessageController extends BaseController
     }
 
     // Préparation de l'historique
-    $modificationModel = new historiqueModel();
-    $newModification = [
+    $historiqueModel = new historiqueModel();
+    $newhistorique = [
         'IdMessage'  => $id,
         'mailUser'   => $message['mailUser'],
         'Date'       => date('Y-m-d H:i:s'),
@@ -146,7 +156,7 @@ class MessageController extends BaseController
 
     // Insertion de l'historique
     try {
-        $modificationModel->insert($newModification);
+        $historiqueModel->insert($newhistorique);
     } catch (\Exception $e) {
         // Gestion des erreurs d'insertion de l'historique
         return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)

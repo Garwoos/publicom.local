@@ -66,17 +66,20 @@
     </table>
     <script>
     function confirmDelete(id) {
-        if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/deleteMessage", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Rafraîchir la page pour refléter les changements
+        if (confirm('Voulez-vous vraiment supprimer ce message ?')) {
+            fetch('/delete/' + id, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.log(data.message);
                     location.reload();
                 }
-            };
-            xhr.send("id=" + id);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la suppression du message:', error);
+            });
         }
     }
 

@@ -17,7 +17,7 @@ $routes->get('/modify/(:num)', 'Modify::index/$1');
 
 $routes->post('/createMessage', 'MessageController::create');
 
-$routes->post('/deleteMessage', 'MessageController::delete');
+$routes->post('/delete/(:num)', 'MessageController::delete/$1');
 
 $routes->put('/updateMessage', 'MessageController::update');
 
