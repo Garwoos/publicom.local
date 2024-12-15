@@ -7,6 +7,27 @@ if (!$session->has('user')) {
 } else {
     $user = $session->get('user');
 }
+
+$fontFamilies = [
+    1 => 'Arial',
+    2 => 'Times New Roman',
+    3 => 'Verdana',
+    4 => 'Georgia',
+    5 => 'Courier New',
+    6 => 'Comic Sans MS',
+    
+];
+
+$alignmentClasses = [
+    0 => 'text-left',
+    1 => 'text-center',
+    2 => 'text-right',
+];
+
+// Get the font family names based on the IDs
+$fontTitle = $fontFamilies[$message['fontTitle']] ?? 'default-font';
+$fontText = $fontFamilies[$message['fontText']] ?? 'default-font';
+$alignmentTextClass = $alignmentClasses[$message['alignmentText']] ?? 'text-center';
 ?>
 
 <?= $this->extend('layout') ?>
@@ -19,11 +40,15 @@ if (!$session->has('user')) {
     <button class="nav-button prev-button" onclick="navigateMessage('prev')"><span class="arrow">&larr;</span></button>
     <div class="containerUn">
         <div class="form-group">
-            <p id="titre"><?= htmlspecialchars($message['Title']) ?></p>
+            <p id="titre" style="font-family: <?= htmlspecialchars($fontTitle) ?>; font-size: <?= htmlspecialchars($message['sizeTitle']) ?>px;">
+            <?= htmlspecialchars($message['Title']) ?>
+            </p>
         </div>
 
         <div class="form-group">
-            <p id="description"><?= htmlspecialchars($message['Text']) ?></p>
+            <p id="description" class="<?= htmlspecialchars($alignmentTextClass) ?>" style="font-family: <?= htmlspecialchars($fontText) ?>; font-size: <?= htmlspecialchars($message['sizeText']) ?>px;">
+            <?= htmlspecialchars($message['Text']) ?>
+            </p>
         </div>
     </div>
     <button class="nav-button next-button" onclick="navigateMessage('next')"><span class="arrow">&rarr;</span></button>
