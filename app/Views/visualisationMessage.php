@@ -28,6 +28,7 @@ $alignmentClasses = [
 $fontTitle = $fontFamilies[$message['fontTitle']] ?? 'default-font';
 $fontText = $fontFamilies[$message['fontText']] ?? 'default-font';
 $alignmentTextClass = $alignmentClasses[$message['alignmentText']] ?? 'text-center';
+$imageUrl = htmlspecialchars($message['image']);
 ?>
 
 <?= $this->extend('layout') ?>
@@ -38,7 +39,7 @@ $alignmentTextClass = $alignmentClasses[$message['alignmentText']] ?? 'text-cent
 
 <div class="container-wrapper">
     <button class="nav-button prev-button" onclick="navigateMessage('prev')"><span class="arrow">&larr;</span></button>
-    <div class="containerUn">
+    <div class="containerUn" style="<?= $imageUrl ? "background-image: url('$imageUrl');" : '' ?>">
         <div class="form-group">
             <p id="titre" style="font-family: <?= htmlspecialchars($fontTitle) ?>; font-size: <?= htmlspecialchars($message['sizeTitle']) ?>px;">
             <?= htmlspecialchars($message['Title']) ?>
@@ -64,6 +65,12 @@ function navigateMessage(direction) {
         .then(data => {
             document.getElementById('titre').innerText = data.Title;
             document.getElementById('description').innerText = data.Text;
+            const containerUn = document.querySelector('.containerUn');
+            if (data.image) {
+                containerUn.style.backgroundImage = `url(${data.image})`;
+            } else {
+                containerUn.style.backgroundImage = '';
+            }
             document.getElementById('currentEventId').value = data.idMessage;
         })
         .catch(error => console.error('Error:', error));
