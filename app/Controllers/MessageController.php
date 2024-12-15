@@ -51,8 +51,8 @@ class MessageController extends BaseController
         } catch (\Exception $e) {
             // Gestion des erreurs d'insertion
             return $this->response->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
-                                  ->setJSON(['message' => 'Erreur lors de l\'enregistrement dans la base de données', 'error' => $e->getMessage]);
-    }
+                                  ->setJSON(['message' => 'Erreur lors de l\'enregistrement dans la base de données', 'error' => $e->getMessage ]);
+        }
 }
 
 public function delete($id)
