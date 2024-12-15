@@ -18,9 +18,16 @@ $fontFamilies = [
     
 ];
 
+$alignmentClasses = [
+    0 => 'text-left',
+    1 => 'text-center',
+    2 => 'text-right',
+];
+
 // Get the font family names based on the IDs
 $fontTitle = $fontFamilies[$message['fontTitle']] ?? 'default-font';
 $fontText = $fontFamilies[$message['fontText']] ?? 'default-font';
+$alignmentTextClass = $alignmentClasses[$message['alignmentText']] ?? 'text-center';
 ?>
 
 <?= $this->extend('layout') ?>
@@ -39,7 +46,7 @@ $fontText = $fontFamilies[$message['fontText']] ?? 'default-font';
         </div>
 
         <div class="form-group">
-            <p id="description" style="font-family: <?= htmlspecialchars($fontText) ?>; font-size: <?= htmlspecialchars($message['sizeText']) ?>px;">
+            <p id="description" class="<?= htmlspecialchars($alignmentTextClass) ?>" style="font-family: <?= htmlspecialchars($fontText) ?>; font-size: <?= htmlspecialchars($message['sizeText']) ?>px;">
             <?= htmlspecialchars($message['Text']) ?>
             </p>
         </div>

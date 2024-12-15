@@ -83,3 +83,15 @@ p {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 10px; /* Add padding to the arrow itself */
 }
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
