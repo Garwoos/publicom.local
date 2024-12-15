@@ -26,7 +26,7 @@ class MessageController extends BaseController
             'Title'         => $data['title'] ?? null,
             'Text'          => $data['text'] ?? null,
             'mailUser'      => $data['mailUser'] ?? null,
-            'Online'        => 0, // Vous pouvez changer cette logique si nécessaire
+            'Online'        => 0, 
             'image'         => $data['image'] ?? null,
             'fontTitle'     => $data['fontTitle'] ?? null,
             'sizeTitle'     => $data['sizeTitle'] ?? null,
@@ -67,7 +67,8 @@ class MessageController extends BaseController
         $data = $this->request->getJSON(true); // Utilisation de getJSON pour récupérer les données JSON envoyées par fetch
 
         // Récupérer l'ID du message à supprimer
-        $id = $data['id'] ?? null;
+        $id = $this->request->getPost('id');
+        log_message('debug', 'ID de suppression : ' . $id); // Débogage pour vérifier l'ID
 
         // Vérifier si l'ID est valide
         if (!is_numeric($id)) {
@@ -96,6 +97,7 @@ class MessageController extends BaseController
                                   ->setJSON(['message' => 'Erreur lors de la suppression dans la base de données', 'error' => $e->getMessage()]);
         }
     }
+
 
     public function update()
 {
