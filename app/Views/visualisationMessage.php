@@ -29,6 +29,8 @@ $fontTitle = $fontFamilies[$message['fontTitle']] ?? 'default-font';
 $fontText = $fontFamilies[$message['fontText']] ?? 'default-font';
 $alignmentTextClass = $alignmentClasses[$message['alignmentText']] ?? 'text-center';
 $imageUrl = htmlspecialchars($message['image']);
+
+
 ?>
 
 <?= $this->extend('layout') ?>
@@ -63,17 +65,25 @@ function navigateMessage(direction) {
     fetch(`/navigateEvent?direction=${direction}&currentEventId=${currentEventId}`)
         .then(response => response.json())
         .then(data => {
-            document.getElementById('titre').innerText = data.Title;
-            document.getElementById('description').innerText = data.Text;
-            const containerUn = document.querySelector('.containerUn');
-            if (data.image) {
-                containerUn.style.backgroundImage = `url(${data.image})`;
+            if (data.error) {
+                alert(data.error);
             } else {
-                containerUn.style.backgroundImage = '';
+                document.getElementById('titre').innerText = data.Title;
+                document.getElementById('titre').style.fontFamily = data.fontTitle;
+                document.getElementById('titre').style.fontSize = data.sizeTitle + 'px';
+
+                document.getElementById('description').innerText = data.Text;
+                document.getElementById('description').style.fontFamily = data.fontText;
+                document.getElementById('description').style.fontSize = data.sizeText + 'px';
+                document.getElementById('description').className = data.alignmentText;
+
+                document.querySelector('.containerUn').style.backgroundImage = data.image ? `url('${data.image}')` : '';
+                document.getElementById('currentEventId').value = data.idMessage;
             }
-            document.getElementById('currentEventId').value = data.idMessage;
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+        }); 
 }
 </script>
 <?= $this->endSection() ?>

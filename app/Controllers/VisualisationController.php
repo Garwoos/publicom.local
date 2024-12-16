@@ -29,6 +29,11 @@ class VisualisationController extends Controller
     {
         $direction = $this->request->getGet('direction');
         $currentEventId = $this->request->getGet('currentEventId');
+
+        // Sanitize input data
+        $direction = filter_var($direction, FILTER_SANITIZE_STRING);
+        $currentEventId = filter_var($currentEventId, FILTER_SANITIZE_NUMBER_INT);
+
         $eventIds = $this->getEventIds();
         $currentIndex = array_search($currentEventId, array_column($eventIds, 'idMessage'));
 
@@ -42,11 +47,30 @@ class VisualisationController extends Controller
         $model = new messageModel();
         $event = $model->where('idMessage', $newEventId)->first();
 
-        return $this->response->setJSON($event);
+        $fontFamilies = [
+            1 => 'Arial',
+            2 => 'Times New Roman',
+            3 => 'Verdana',
+            4 => 'Georgia',
+            5 => 'Courier New',
+            6 => 'Comic Sans MS',
+        ];
+    
+        $response = [
+            'Title' => $event['Title'],
+            'fontTitle' => $fontFamilies[$event['fontTitle']] ?? 'default-font',
+            'sizeTitle' => $event['sizeTitle'],
+            'Text' => $event['Text'],
+            'fontText' => $fontFamilies[$event['fontText']] ?? 'default-font',
+            'sizeText' => $event['sizeText'],
+            'alignmentText' => $event['alignmentText'],
+            'image' => htmlspecialchars($event['image']),
+            'idMessage' => $event['idMessage']
+        ];
+    
+
+        return $this->response->setJSON($response);
     }
-
-
-
 
 }
 ?>
