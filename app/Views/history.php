@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+            <?php $data = array_reverse($data); ?>
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <td class="centrer"><?= $row['idModification'] ?></td>
